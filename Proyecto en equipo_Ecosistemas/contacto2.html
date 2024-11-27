@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Contacto - EcoTec</title>
+    <style>
+        /* General */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #E8F5E9; /* Fondo verde claro */
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background-color: #388E3C; /* Verde oscuro, tema ecológico */
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-bottom: 5px solid #2C6B2F; /* Sombra más natural */
+            border-radius: 0 0 15px 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            color: #fff;
+        }
+
+        header img {
+            width: 120px;  /* Aumentado el tamaño del logo */
+            height: auto;
+        }
+
+        header h1 {
+            font-size: 42px;
+            font-weight: bold;
+            margin: 0;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            background-color: #388E3C;
+            color: #fff;
+            padding: 20px;
+            transition: left 0.3s ease;
+            z-index: 2;
+            border-radius: 0 20px 20px 0;
+        }
+
+        .sidebar a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            padding: 15px 0;
+            font-size: 20px;
+            border-bottom: 1px solid #2C6B2F;
+            padding-left: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: #2C6B2F; /* Verde más oscuro en hover */
+        }
+
+        .open-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            cursor: pointer;
+            background-color: #66BB6A; /* Verde claro en botón */
+            color: #fff;
+            padding: 15px 20px;
+            border-radius: 50%;
+            border: none;
+            font-size: 26px;
+            z-index: 3;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 1;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Contenedores de contenido */
+        .content-container {
+            padding: 20px;
+            margin: 40px auto;
+            width: 80%;
+            max-width: 900px;
+        }
+
+        .caja {
+            background-color: #ffffff;
+            margin-bottom: 20px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .caja:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            font-size: 28px;
+            color: #388E3C; /* Verde oscuro para el título */
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        p {
+            font-size: 18px;
+            color: #607D8B; /* Gris oscuro para el texto */
+            line-height: 1.6;
+        }
+
+        p strong {
+            color: #388E3C; /* Verde oscuro */
+        }
+
+        /* Estilos de los íconos de redes sociales */
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            margin: 0 25px; /* Aumentado el espacio entre los íconos */
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.2); /* Aumenta más el tamaño en hover */
+        }
+
+        /* Estilo general para los íconos */
+        .social-icon {
+            width: 60px; /* Aumento del tamaño de los íconos */
+            height: 60px; /* Aumento del tamaño de los íconos */
+            border-radius: 50%; /* Hace los íconos redondos */
+            object-fit: cover; /* Asegura que la imagen se ajuste dentro del círculo */
+        }
+
+        /* Estilo específico para el ícono de Instagram */
+        .insta-btn {
+            background-color: transparent; /* Sin color de fondo */
+            border-radius: 50%; /* Asegura que el ícono de Instagram sea redondo */
+            padding: 15px; /* Se agrega más espacio alrededor del ícono */
+            border: 3px solid #E4405F; /* Borde color de Instagram */
+        }
+
+        /* Efecto de hover para el ícono de Instagram */
+        .insta-btn:hover {
+            border: 3px solid #C13584; /* Color más oscuro del borde al pasar el mouse */
+        }
+
+        /* Estilos del formulario */
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid #BDC3C7;
+            font-size: 16px;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        .contact-form button {
+            background-color: #66BB6A; /* Verde claro en botón */
+            color: white;
+            padding: 15px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background-color: #4CAF50; /* Verde más oscuro en hover */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Menú y Sidebar -->
+    <button class="open-btn" onclick="toggleSidebar()">☰</button>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-title" style="font-size: 24px; color: #fff; margin-bottom: 20px;">Menú</div>
+        <a href="index.html">De regreso al menú</a>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const body = document.body;
+
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+
+            body.style.marginLeft = sidebar.classList.contains('active') ? '250px' : '0';
+        }
+
+        document.getElementById('overlay').addEventListener('click', toggleSidebar);
+    </script>
+
+    <header>
+               
+        <h1>EcoTec</h1>
+    </header>
+
+    <div class="content-container">
+        <div class="caja">
+            <h2>¡Contáctanos!</h2>
+            <p>Estamos aquí para ayudarte con cualquier duda o consulta. No dudes en escribirnos y te responderemos lo antes posible.</p>
+        </div>
+
+        <div class="caja">
+            <p><strong>Redes Sociales:</strong> Nos puedes encontrar en todas las redes sociales como: <strong>EcoTec_01</strong></p>
+            <p><strong>Teléfono de contacto:</strong>81 2073 7291 </p>
+            <p><strong>Correo electrónico:</strong> <a href="mailto:ecotec.ov@gmail.com">ecotec.ov@gmail.com</a></p>
+        </div>
+
+        <div class="caja">
+            <h3>Redes Sociales</h3>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/profile.php?id=61569384245401" target="_blank">
+                    <img src="fb-removebg-preview.png" alt="Facebook" class="social-icon">
+                </a>
+                <a href="https://instagram.com/EcoTec_01" target="_blank" class="insta-btn">
+                    <img src="insta-removebg-preview.png" alt="Instagram" class="social-icon">
+                </a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

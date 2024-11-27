@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario sobre Cadenas Tróficas</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('fnd_pag22.jpg');
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 60%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .question {
+            margin-bottom: 25px;
+        }
+
+        label {
+            font-size: 16px;
+            margin-left: 20px;
+            display: block;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .points {
+            font-size: 14px;
+            color: #777;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            margin-top: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+        }
+
+        .incorrect {
+            background-color: #FFCDD2;
+            border: 1px solid #F44336;
+            padding: 10px;
+            border-radius: 5px;
+            animation: incorrectHighlight 0.5s ease-in-out;
+        }
+
+        .correct {
+            background-color: #C8E6C9;
+            border: 1px solid #4CAF50;
+            padding: 10px;
+            border-radius: 5px;
+            animation: correctHighlight 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes incorrectHighlight {
+            0% {
+                background-color: #FFCDD2;
+            }
+            50% {
+                background-color: #F44336;
+            }
+            100% {
+                background-color: #FFCDD2;
+            }
+        }
+
+        @keyframes correctHighlight {
+            0% {
+                background-color: #C8E6C9;
+            }
+            50% {
+                background-color: #4CAF50;
+            }
+            100% {
+                background-color: #C8E6C9;
+            }
+        }
+
+
+
+      
+    </style>
+</head>
+<body>
+
+
+    <div class="container">
+        <h1>Formulario sobre Cadenas Tróficas y Competencia</h1>
+        <form id="quizForm">
+            <div class="question">
+                <p>1. ¿Qué es una cadena trófica? <span class="points">(Valor: 10 puntos)</span></p>
+                <label><input type="radio" name="q1" value="a"> a) Es una representación lineal de cómo fluye la energía en un ecosistema.</label>
+                <label><input type="radio" name="q1" value="b"> b) Comienza con los productores.</label>
+                <label><input type="radio" name="q1" value="c"> c) Incluye consumidores y descomponedores.</label>
+                <label><input type="radio" name="q1" value="d"> d) Muestra las relaciones alimentarias.</label>
+            </div>
+
+            <div class="question">
+                <p>2. ¿Cuáles son los niveles tróficos principales? <span class="points">(Valor: 10 puntos)</span></p>
+                <label><input type="radio" name="q2" value="a"> a) Productores: Organismos que producen su propio alimento.</label>
+                <label><input type="radio" name="q2" value="b"> b) Consumidores primarios: Herbívoros.</label>
+                <label><input type="radio" name="q2" value="c"> c) Consumidores secundarios y terciarios: Carnívoros.</label>
+                <label><input type="radio" name="q2" value="d"> d) Descomponedores: Organismos que descomponen materia orgánica.</label>
+            </div>
+
+            <div class="question">
+                <p>3. ¿Qué es una red trófica? <span class="points">(Valor: 10 puntos)</span></p>
+                <label><input type="radio" name="q3" value="a"> a) Un conjunto interconectado de cadenas tróficas.</label>
+                <label><input type="radio" name="q3" value="b"> b) Muestra las relaciones alimentarias en un ecosistema.</label>
+                <label><input type="radio" name="q3" value="c"> c) Representa la complejidad de interacciones.</label>
+                <label><input type="radio" name="q3" value="d"> d) Incluye múltiples especies.</label>
+            </div>
+
+            <div class="question">
+                <p>4. ¿Cómo afecta la eliminación de un depredador a la cadena trófica? <span class="points">(Valor: 10 puntos)</span></p>
+                <label><input type="radio" name="q4" value="a"> a) Puede causar un aumento en la población de presas.</label>
+                <label><input type="radio" name="q4" value="b"> b) Lleva a la sobreexplotación de productores.</label>
+                <label><input type="radio" name="q4" value="c"> c) Puede provocar un colapso del ecosistema.</label>
+                <label><input type="radio" name="q4" value="d"> d) Alteraría el equilibrio natural.</label>
+            </div>
+
+            <div class="question">
+                <p>5. ¿Qué es la competencia en un ecosistema? <span class="points">(Valor: 10 puntos)</span></p>
+                <label><input type="radio" name="q5" value="a"> a) Lucha entre organismos por recursos limitados.</label>
+                <label><input type="radio" name="q5" value="b"> b) Puede ser intraespecífica (dentro de la misma especie).</label>
+                <label><input type="radio" name="q5" value="c"> c) Puede ser interespecífica (entre diferentes especies).</label>
+                <label><input type="radio" name="q5" value="d"> d) Afecta la disponibilidad de recursos.</label>
+            </div>
+
+            <div class="question">
+                <p>6. ¿Cómo puede la competencia afectar el tamaño de las poblaciones? <span class="points">(Valor: 10 puntos)</span></p>
+                <label><input type="radio" name="q6" value="a"> a) Limita el crecimiento poblacional.</label>
+                <label><input type="radio" name="q6" value="b"> b) Reduce el acceso a recursos esenciales.</label>
+                <label><input type="radio" name="q6" value="c"> c) Puede resultar en disminución de poblaciones.</label>
+                <label><input type="radio" name="q6" value="d"> d) Afecta la distribución de especies.</label>
+            </div>
+
+            <div class="question">
+                <p>7. ¿Qué es el principio de exclusión competitiva? <span class="points">(Valor: 10 puntos)</span></p>
+                <label><input type="radio" name="q7" value="a"> a) Establece que dos especies no pueden coexistir en el mismo nicho ecológico.</label>
+                <label><input type="radio" name="q7" value="b"> b) Se aplica a especies que compiten por los mismos recursos.</label>
+                <label><input type="radio" name="q7" value="c"> c) Una especie eventualmente superará a la otra.</label>
+                <label><input type="radio" name="q7" value="d"> d) Es fundamental para entender las dinámicas ecológicas.</label>
+            </div>
+
+            <div class="question">
+                <p>8. ¿Cómo pueden las especies evitar la competencia? <span class="points">(Valor: 10 puntos)</span></p>
+                <label><input type="radio" name="q8" value="a"> a) Adaptándose a diferentes nichos ecológicos.</label>
+                <label><input type="radio" name="q8" value="b"> b) Utilizando recursos en distintos momentos del día o año.</label>
+                <label><input type="radio" name="q8" value="c"> c) Desarrollando características físicas diferentes.</label>
+                <label><input type="radio" name="q8" value="d"> d) Cambiando su comportamiento alimentario.</label>
+            </div>
+
+            <div class="question">
+                <p>9. ¿Qué papel juegan los descomponedores en la cadena trófica? <span class="points">(Valor: 10 puntos)</span></p>
+                <label><input type="radio" name="q9" value="a"> a) Descomponen materia orgánica muerta.</label>
+                <label><input type="radio" name="q9" value="b"> b) Liberan nutrientes al suelo.</label>
+                <label><input type="radio" name="q9" value="c"> c) Permiten el crecimiento de los productores.</label>
+                <label><input type="radio" name="q9" value="d"> d) Son esenciales para el ciclo de nutrientes.</label>
+            </div>
+
+            <div class="question">
+                <p>10. ¿Por qué es importante entender las cadenas tróficas y las competencias en los ecosistemas? <span class="points">(Valor: 10 puntos)</span></p>
+                <label><input type="radio" name="q10" value="a"> a) Crucial para conservar ecosistemas saludables.</label>
+                <label><input type="radio" name="q10" value="b"> b) Ayuda a gestionar recursos naturales sosteniblemente.</label>
+                <label><input type="radio" name="q10" value="c"> c) Permite predecir cambios ambientales en las interacciones biológicas.</label>
+                <label><input type="radio" name="q10" value="d"> d) Fomenta la biodiversidad y el equilibrio ecológico.</label>
+            </div>
+
+            <button type="button" onclick="submitQuiz()">Enviar respuestas</button>
+            <button type="button" onclick="resetQuiz()">Reiniciar quiz</button>
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function submitQuiz() {
+            const form = document.getElementById('quizForm');
+            const resultDiv = document.getElementById('result');
+            let score = 0;
+
+            // Respuestas correctas
+            const correctAnswers = {
+                q1: 'a',
+                q2: 'a',
+                q3: 'a',
+                q4: 'a',
+                q5: 'a',
+                q6: 'a',
+                q7: 'a',
+                q8: 'a',
+                q9: 'a',
+                q10: 'a',
+            };
+
+            // Comprobar respuestas y resaltar incorrectas y correctas
+            for (let i = 1; i <= 10; i++) {
+                const question = form.querySelector(`input[name="q${i}"]:checked`);
+                if (question) {
+                    const label = question.parentElement;
+                    if (question.value === correctAnswers[`q${i}`]) {
+                        score += 10;
+                        label.classList.add('correct');
+                    } else {
+                        label.classList.add('incorrect');
+                    }
+                }
+            }
+
+            // Mostrar el resultado
+            resultDiv.textContent = `Tu puntaje es ${score} de 100.`;
+        }
+
+        function resetQuiz() {
+            const form = document.getElementById('quizForm');
+            const resultDiv = document.getElementById('result');
+            form.reset();  // Restablecer el formulario
+            resultDiv.textContent = '';  // Limpiar el resultado
+            const labels = form.querySelectorAll('label');
+            labels.forEach(label => {
+                label.classList.remove('incorrect');
+                label.classList.remove('correct');
+            });
+        }
+    </script>
+</body>
+</html>
+

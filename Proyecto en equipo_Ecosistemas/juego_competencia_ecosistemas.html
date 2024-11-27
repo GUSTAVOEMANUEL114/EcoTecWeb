@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Competencia en Ecosistemas</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('f22.jpg');
+      background-size: cover;
+      background-position: center;
+      color: #2c3e50;
+      transition: margin-left 0.3s ease; /* Para permitir el espacio del menú */
+      line-height: 1.8;
+      background-image:url('fnd_pag22.jpg');
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    /* Header */
+    header {
+      background-color: rgba(72, 124, 87, 0.85); /* Verde bosque */
+      padding: 40px 20px;
+      text-align: center;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+      border-bottom: 5px solid #556b2f; /* Línea divisoria verde oliva */
+      border-radius: 0 0 20px 20px; /* Bordes redondeados */
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    header h1 {
+      font-size: 48px;
+      font-weight: bold;
+      color: #ffffff;
+      margin: 0;
+      text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      height: 100%;
+      width: 250px;
+      position: fixed;
+      top: 0;
+      left: -250px;
+      background-color: #5d8a61; /* Verde musgo */
+      color: white;
+      padding: 20px;
+      transition: left 0.3s ease;
+      z-index: 2;
+      border-radius: 0 20px 20px 0; /* Bordes redondeados */
+    }
+
+    .sidebar a {
+      color: #ffffff;
+      text-decoration: none;
+      display: block;
+      padding: 15px 0;
+      font-size: 20px;
+      border-bottom: 1px solid #a6d3b8;
+      padding-left: 20px;
+      transition: background-color 0.3s ease;
+    }
+
+    .sidebar a:hover {
+      background-color: #a6d3b8; /* Verde más claro */
+    }
+
+    .open-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      cursor: pointer;
+      background-color: #5d8a61; /* Verde musgo */
+      color: white;
+      padding: 15px 20px;
+      border-radius: 50%;
+      border: none;
+      font-size: 26px;
+      z-index: 3;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .sidebar.active {
+      left: 0;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      z-index: 1;
+    }
+
+    .overlay.active {
+      display: block;
+    }
+
+    /* Pantalla de Introducción */
+    .intro-screen {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 50px;
+      border-radius: 20px;
+      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 800px;
+      position: absolute;
+      text-align: center;
+      transform: scale(1);
+    }
+
+    .intro-screen h1 {
+      font-size: 48px;
+      font-weight: bold;
+      color: #2d6a4f;
+      margin-bottom: 30px;
+    }
+
+    .intro-screen p {
+      font-size: 20px;
+      color: #3d5a41;
+      margin-bottom: 30px;
+    }
+
+    .start-button {
+      padding: 15px 30px;
+      background-color: #2d6a4f;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .start-button:hover {
+      background-color: #1f5e3b;
+      transform: scale(1.1);
+    }
+
+    .start-button:focus {
+      outline: none;
+    }
+
+    /* Contenedor del juego */
+    .game-container {
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 1000px;
+      position: relative;
+      display: none;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 36px;
+      color: #4c6a48;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .question {
+      font-size: 28px;
+      font-weight: 700;
+      color: #3d5a41;
+      margin-bottom: 30px;
+    }
+
+    .answers {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .answer-img-container {
+      text-align: center;
+      position: relative;
+      width: 180px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-radius: 10px;
+      padding: 10px;
+      background-color: #e0f2f1;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .answer-img-container:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      background-color: #b2dfdb;
+    }
+
+    .answer-img {
+      width: 160px;
+      height: 160px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .answer-name {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #333;
+      font-weight: 700;
+    }
+
+    .result-message {
+      font-size: 22px;
+      margin-top: 20px;
+      font-weight: 700;
+      color: #27ae60;
+    }
+
+    .incorrect {
+      color: #e74c3c;
+    }
+
+    .final-score {
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #2980b9;
+    }
+
+    .reset-button {
+      margin-top: 30px;
+      padding: 15px 30px;
+      background-color: #2980b9;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .reset-button:hover {
+      background-color: #1c6a8a;
+      transform: scale(1.1);
+    }
+
+    .reset-button:focus {
+      outline: none;
+    }
+
+    .lives {
+      font-size: 20px;
+      color: #f39c12;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Menú y Sidebar -->
+  <button class="open-btn" onclick="toggleSidebar()">☰</button>
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-title" style="font-size: 24px; color: #fff; margin-bottom: 20px;">Menú</div>
+    <a href="index.html">De regreso al menú</a>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Pantalla de Introducción -->
+  <div class="intro-screen" id="intro-screen">
+    <h1>Competencia en Ecosistemas</h1>
+    <p>¡Pon a prueba tus conocimientos sobre cómo las especies compiten por recursos en la naturaleza!</p>
+    <button class="start-button" onclick="startGame()">Empezar Juego</button>
+  </div>
+
+  <!-- Contenedor del juego -->
+  <div class="game-container" id="game-container">
+    <h2>Competencia en Ecosistemas</h2>
+    <p class="lives" id="lives">Vidas restantes: 3</p>
+    <div class="question" id="question">¿Qué tipo de competencia ocurre cuando dos especies diferentes luchan por los mismos recursos?</div>
+    <div class="answers" id="answers">
+      <!-- Las opciones de respuesta -->
+    </div>
+    <div class="result-message" id="result-message"></div>
+    <div class="final-score" id="final-score"></div>
+    <button class="reset-button" id="reset-button" onclick="resetGame()">Reiniciar Juego</button>
+  </div>
+
+  <script>
+    let questions = [
+  {
+    question: "¿Qué tipo de competencia ocurre cuando dos especies diferentes luchan por los mismos recursos?",
+    answers: [
+      { text: "Competencia Intraespecífica", correct: false, image: "osos.jpg" },
+      { text: "Competencia Interespecífica", correct: true, image: "aguila.jpg" },
+      { text: "Competencia por Territorio", correct: false, image: "territorio.jpg" },
+      { text: "Competencia por Alimentos", correct: false, image: "alimentos.jpg" }
+    ]
+  },
+  {
+    question: "Cuando individuos de la misma especie compiten entre sí por alimentos, se produce una competencia:",
+    answers: [
+      { text: "Intraespecífica", correct: true, image: "intraespecifica.jpg" },
+      { text: "Interespecífica", correct: false, image: "interespecifica.jpg" },
+      { text: "Competencia por Recursos", correct: false, image: "recursos.webp" },
+      { text: "Competencia por Territorio", correct: false, image: "territorio.jpg" }
+    ]
+  },
+  {
+    question: "¿Qué tipo de competencia ocurre cuando diferentes especies ocupan el mismo nicho ecológico?",
+    answers: [
+      { text: "Competencia Intraespecífica", correct: false, image: "intraespecifica.jpg" },
+      { text: "Competencia Interespecífica", correct: true, image: "interespecifica.jpg" },
+      { text: "Competencia por Alimentos", correct: false, image: "alimentos.jpg" },
+      { text: "Competencia por Territorio", correct: false, image: "territorio.jpg" }
+    ]
+  },
+  {
+    question: "¿Cuál de los siguientes es un ejemplo de competencia interespecífica?",
+    answers: [
+      { text: "Leones luchando por territorio", correct: false, image: "territorio.jpg" },
+      { text: "Lobos y zorros compitiendo por presas", correct: true, image: "lobos.jpg" },
+      { text: "Un león luchando con otro león por comida", correct: false, image: "comida.jpg" },
+      { text: "Cervatillos compitiendo por espacio", correct: false, image: "espacio.jpg" }
+    ]
+  },
+  {
+    question: "¿Qué tipo de competencia involucra a individuos de diferentes especies luchando por la misma fuente de comida?",
+    answers: [
+      { text: "Intraespecífica", correct: false, image: "intraespecifica.jpg" },
+      { text: "Interespecífica", correct: true, image: "interespecifica.jpg" },
+      { text: "Competencia por Agua", correct: false, image: "agua.jpg" },
+      { text: "Competencia por Espacio", correct: false, image: "espacio.jpg" }
+    ]
+  },
+  {
+    question: "Cuando los individuos de una especie luchan por el mismo espacio para vivir, ¿qué tipo de competencia ocurre?",
+    answers: [
+      { text: "Competencia Intraespecífica", correct: true, image: "intraespecifica.jpg" },
+      { text: "Competencia Interespecífica", correct: false, image: "interespecifica.jpg" },
+      { text: "Competencia por Recursos", correct: false, image: "recursos.webp" },
+      { text: "Competencia por Comida", correct: false, image: "comida.jpg" }
+    ]
+  }
+];
+
+let currentQuestionIndex = 0;
+let lives = 3;
+let score = 0;
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('active');
+  document.getElementById('overlay').classList.toggle('active');
+}
+
+function startGame() {
+  document.getElementById('intro-screen').style.display = 'none';
+  document.getElementById('game-container').style.display = 'block';
+  loadQuestion();
+}
+
+function loadQuestion() {
+  let questionData = questions[currentQuestionIndex];
+  document.getElementById('question').textContent = questionData.question;
+  let answersContainer = document.getElementById('answers');
+  answersContainer.innerHTML = ''; // Limpiar las respuestas anteriores
+
+  // Cargar las respuestas
+  questionData.answers.forEach((answer, index) => {
+    let answerElement = document.createElement('div');
+    answerElement.classList.add('answer-img-container');
+    answerElement.onclick = () => checkAnswer(index);
+
+    // Asignar la imagen correcta y el texto de la respuesta
+    answerElement.innerHTML = `
+      <img class="answer-img" src="${answer.image || 'default.jpg'}" alt="${answer.text}">
+      <div class="answer-name">${answer.text}</div>
+    `;
+    answersContainer.appendChild(answerElement);
+  });
+
+  // Limpiar el mensaje de resultado y puntaje
+  document.getElementById('result-message').textContent = '';
+  document.getElementById('final-score').textContent = '';
+}
+
+function checkAnswer(index) {
+  if (lives <= 0) return; // Si ya no hay vidas, no se puede responder
+
+  let correctAnswer = questions[currentQuestionIndex].answers[index].correct;
+  if (correctAnswer) {
+    score++;
+    document.getElementById('result-message').textContent = "¡Respuesta correcta!";
+    document.getElementById('result-message').classList.remove('incorrect');
+  } else {
+    lives--;
+    document.getElementById('result-message').textContent = "Respuesta incorrecta.";
+    document.getElementById('result-message').classList.add('incorrect');
+  }
+  updateLives();
+  updateScore();
+
+  if (lives > 0) {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+      setTimeout(loadQuestion, 1500);
+    } else {
+      setTimeout(endGame, 1500);
+    }
+  } else {
+    setTimeout(endGame, 1500);
+  }
+}
+
+function updateLives() {
+  document.getElementById('lives').textContent = `Vidas restantes: ${lives}`;
+}
+
+function updateScore() {
+  document.getElementById('final-score').textContent = `Puntaje: ${score}`;
+}
+
+function endGame() {
+  document.getElementById('question').textContent = '¡Fin del juego!';
+  document.getElementById('result-message').textContent = '';
+  document.getElementById('reset-button').style.display = 'block';
+  
+  // Desactivar las respuestas
+  let answerElements = document.getElementsByClassName('answer-img-container');
+  for (let element of answerElements) {
+    element.onclick = null; // Desactivar el clic
+  }
+}
+
+function resetGame() {
+  currentQuestionIndex = 0;
+  lives = 3;
+  score = 0;
+  updateLives();
+  updateScore();
+  document.getElementById('reset-button').style.display = 'none';
+  document.getElementById('game-container').style.display = 'none';
+  document.getElementById('intro-screen').style.display = 'block';
+}
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Redes Tróficas y la Disminución de Niveles Energéticos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+    
+        /* Contenedor de las imágenes */
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;  /* Espacio entre las imágenes */
+            margin-top: 40px;
+        }
+    
+        /* Estilo de cada tarjeta de imagen */
+        .card {
+            width: 48%;  /* 2 imágenes por fila */
+            margin-bottom: 20px;
+            position: relative;
+            height: 350px;
+        }
+    
+        /* Estilo de la cara de la tarjeta */
+        .card .face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: .5s;
+        }
+    
+        .card .front {
+            transform: perspective(600px) rotateY(0deg);
+            box-shadow: 0.5px 10px #000;
+        }
+    
+        .card .front img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    
+        .card .front h3 {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 45px;
+            line-height: 45px;
+            color: #fff;
+            background: rgba(0,0,0,.4);
+            text-align: center;
+        }
+    
+        .card .back {
+            transform: perspective(600px) rotateY(180deg);
+            background: rgb(3,35,54);
+            padding: 15px;
+            color: #f3f3f3;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+            box-shadow: 0 5px 10px #000;
+        }
+    
+        .card .back .link {
+            border-top: solid 1px #f3f3f3;
+            height: 50px;
+            line-height: 50px;
+        }
+    
+        .card .back h3{
+            font-size: 30px;
+            margin-top: 20px;
+            letter-spacing: 2px;
+        }
+    
+        .card .back p {
+            letter-spacing: 1px;
+        }
+    
+        .card:hover .front {
+            transform: perspective(600px) rotateY(180deg);
+        }
+    
+        .card:hover .back {
+            transform: perspective(600px) rotateY(360deg);
+        }
+    
+/* General */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('fnd_pag22.jpg');
+    background-size: cover; /* La imagen cubrirá toda el área visible */
+    background-position: 0 0; /* Posición inicial de la imagen */
+    background-repeat: no-repeat; /* Evita la repetición de la imagen */
+    background-attachment: fixed; /* Mantiene la imagen fija mientras haces scroll */
+    color: #2c3e50;
+    transition: margin-left 0.3s ease; /* Para permitir el espacio del menú */
+    line-height: 1.8;
+    background-color: #f2f6f1;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Asegura que el contenido ocupe al menos el 100% de la altura de la pantalla */
+    
+    animation: mover-fondo 30s linear infinite; /* Aplica la animación */
+}
+
+/* Animación para mover la imagen de fondo */
+@keyframes mover-fondo {
+    0% {
+        background-position: 0 0; /* Posición inicial */
+    }
+    100% {
+        background-position: 100% 100%; /* Posición final (desplazamiento completo) */
+    }
+}
+
+    
+        /* Header */
+        header {
+            background-color: rgba(26, 54, 34, 0.85); /* Verde bosque */
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            border-bottom: 5px solid #1f3621; /* Línea divisoria verde oliva */
+            border-radius: 0 0 20px 20px; /* Bordes redondeados */
+        }
+    
+        header h1 {
+            font-size: 48px;
+            font-weight: bold;
+            color: #ffffff;
+            margin: 0;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+        }
+    
+        /* Sidebar */
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            background-color: #0e2710; /* Verde musgo */
+            color: white;
+            padding: 20px;
+            transition: left 0.3s ease;
+            z-index: 2;
+            border-radius: 0 20px 20px 0; /* Bordes redondeados */
+        }
+    
+        .sidebar a {
+            color: #ffffff;
+            text-decoration: none;
+            display: block;
+            padding: 15px 0;
+            font-size: 20px;
+            border-bottom: 1px solid #1d3627;
+            padding-left: 20px;
+            transition: background-color 0.3s ease;
+        }
+    
+        .sidebar a:hover {
+            background-color: #193123; /* Verde más claro */
+        }
+    
+        .open-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            cursor: pointer;
+            background-color: #164119; /* Verde musgo */
+            color: white;
+            padding: 15px 20px;
+            border-radius: 50%;
+            border: none;
+            font-size: 26px;
+            z-index: 3;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+    
+        .sidebar.active {
+            left: 0;
+        }
+    
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 1;
+        }
+    
+        .overlay.active {
+            display: block;
+        }
+
+        /* Estilo para el video */
+.video-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.video-container video {
+    max-width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+    
+        /* Contenedores de contenido */
+        .caja {
+            background-color: rgba(255, 255, 255, 0.85);
+            margin: 40px auto;
+            padding: 40px;
+            border-radius: 20px;
+            width: 85%;
+            max-width: 900px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            text-align: justify;
+            border-left: 10px solid #143d25; /* Borde verde */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición para la expansión y sombra */
+        }
+    
+        .caja:hover {
+            transform: scale(1.05); /* Expansión de la caja */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Sombra más intensa */
+        }
+    
+        h2 {
+            font-size: 32px;
+            color: #12291c; /* Verde musgo */
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+    
+        h3 {
+            font-size: 22px;
+            color: #342577; /* Morado suave */
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+    
+        p {
+            font-size: 18px;
+            color: #7f8c8d;
+        }
+    
+        p strong {
+            color: #2c3e50;
+        }
+    
+        /* Estilo para el video */
+        .video-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+    
+        .video-container video {
+            max-width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+        }
+    
+        /* Mejoras visuales para las imágenes */
+        .image-container img {
+            max-width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+        }
+    
+        /* Enlaces */
+        a {
+            color: #114728;
+            text-decoration: none;
+        }
+    
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    
+</head>
+<body>
+
+    <!-- Menú y Sidebar -->
+    <button class="open-btn" onclick="toggleSidebar()">☰</button>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-title" style="font-size: 24px; color: #fff; margin-bottom: 20px;">Menú</div>
+        <a href="index.html">De regreso al menú</a>
+        <a href="juego redes troficas.html">Ir a la prueba</a>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const body = document.body;
+
+            sidebar.classList.toggle('active'); // Activar o desactivar el sidebar
+            overlay.classList.toggle('active'); // Mostrar u ocultar el overlay
+
+            // Mover el contenido a la derecha cuando el menú se abre
+            body.style.marginLeft = sidebar.classList.contains('active') ? '250px' : '0';
+        }
+
+        document.getElementById('overlay').addEventListener('click', toggleSidebar);
+    </script>
+
+    <!-- Header -->
+    <header>
+        <h1>Redes Tróficas y la Disminución de Niveles Energéticos</h1>
+    </header>
+
+    <!-- Contenido principal -->
+    <div class="caja">
+        <h2>Introducción a las Redes Tróficas</h2>
+        <p style="color: black;">Las <strong>redes tróficas</strong> son fundamentales para comprender la distribución y transferencia de energía en los ecosistemas. Representan las interacciones alimentarias entre organismos, desde los productores hasta los consumidores y descomponedores. Un aspecto crucial es que la energía disponible disminuye significativamente al avanzar en los niveles tróficos, lo que tiene repercusiones importantes en la estructura y funcionalidad de los ecosistemas.</p>
+    
+            <!-- Video educativo sobre Competencia en Ecosistemas -->
+<div class="video-container">
+    <h2>Video Explicativo </h2>
+    <iframe width="560" height="315" src="video pagina 2.mp4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+    </div>
+
+    <!-- La pirámide energética -->
+    <div class="caja">
+        <h2>La Pirámide Energética: Un Modelo Fundamental</h2>
+        <p style="color: black;">La <strong>pirámide energética</strong> es una representación gráfica de la cantidad de energía disponible en cada nivel trófico, permitiendo visualizar la distribución de energía desde los productores hasta los consumidores.</p>
+
+        <h3>1. Productores (Nivel 1)</h3>
+        <p style="color: black;">Los productores son organismos autótrofos, como plantas y microorganismos fotosintéticos, que convierten la energía solar en biomasa mediante la fotosíntesis.</p>
+
+        <h3>2. Consumidores Primarios (Nivel 2)</h3>
+        <p style="color: black;">Los consumidores primarios son herbívoros que se alimentan de los productores, obteniendo aproximadamente el 10% de la energía almacenada por las plantas.</p>
+
+        <h3>3. Consumidores Secundarios (Nivel 3)</h3>
+        <p style="color: black;">Los consumidores secundarios son carnívoros que se alimentan de herbívoros, obteniendo alrededor del 10% de la energía del nivel anterior.</p>
+
+        <h3>4. Consumidores Terciarios (Nivel 4)</h3>
+        <p style="color: black;">Los consumidores terciarios son depredadores tope que se alimentan de otros carnívoros, recibiendo solo el 0.1% de la energía original almacenada por las plantas.</p>
+    </div>
+    
+    <div class="image-container">
+        <img src="piramide trofica.jpg"/>
+    </div>
+
+
+    <!-- Implicaciones Ecológicas -->
+    <div class="caja">
+        <h2>Implicaciones Ecológicas de la Disminución Energética</h2>
+        <p style="color: black;">La reducción en los niveles energéticos tiene varias implicaciones significativas para los ecosistemas:</p>
+        <ul>
+            <li style="color: black;"><strong>Limitación en el Tamaño de las Poblaciones:</strong> La escasez de energía disponible limita el tamaño máximo de las poblaciones en niveles superiores.</li>
+            <li style="color: black;"><strong>Efecto en las Interacciones Ecológicas:</strong> La disminución de energía afecta las relaciones entre especies.</li>
+            <li style="color: black;"><strong>Vulnerabilidad a Cambios Ambientales:</strong> Ecosistemas con bajos niveles energéticos son más susceptibles a perturbaciones externas.</li>
+        </ul>
+    </div>
+
+    <!-- Ejemplos de Disminución Energética -->
+    <div class="caja">
+        <h2>Ejemplos de Disminución de Niveles Energéticos en Redes Tróficas</h2>
+        <p style="color: black;">Estos ejemplos demuestran cómo cada nivel trófico recibe una cantidad cada vez menor de energía disponible, limitando así el crecimiento y tamaño poblacional en los niveles superiores del ecosistema:</p>
+
+        <div class="image-container">
+            <div class="card">
+                <div class="face front">
+                    <img src="pag2_img1.jpg" alt="Bosque Templado">
+                    <h3>Bosque Templado</h3>
+                </div>
+                <div class="face back">
+                    <h3 style="color: #fff;">Bosque Templado</h3>
+                    <p>
+                        <li>Productores: 1000 unidades</li>
+                        <li>Consumidores Primarios: 100 unidades</li>
+                        <li>Consumidores Secundarios: 10 unidades</li>
+                        <li>Consumidores Terciarios: 1 unidad</li>
+                    </p>
+                </div>
+            </div>
+        
+            <div class="card">
+                <div class="face front">
+                    <img src="pag2_img2.jpg" alt="Lago">
+                    <h3>Lago</h3>
+                </div>
+                <div class="face back">
+                    <h3 style="color: #fff;">Lago</h3>
+                    <p>
+                        <li>Productores: 800 unidades</li>
+                        <li>Consumidores Primarios: 80 unidades</li>
+                        <li>Consumidores Secundarios: 8 unidades</li>
+                        <li>Consumidores Terciarios: 0.8 unidades</li>
+                    </p>
+                </div>
+            </div>
+        
+            <div class="card">
+                <div class="face front">
+                    <img src="pag2_img3.jpg" alt="Arrecife de Coral">
+                    <h3>Arrecife de Coral</h3>
+                </div>
+                <div class="face back">
+                    <h3 style="color: #fff;">Arrecife de Coral</h3>
+                    <p>
+                        <li>Productores: 800 unidades</li>
+                        <li>Consumidores Primarios: 80 unidades</li>
+                        <li>Consumidores Secundarios: 8 unidades</li>
+                        <li>Consumidores Terciarios: 0.8 unidades</li>
+                    </p>
+                </div>
+            </div>
+        
+            <div class="card">
+                <div class="face front">
+                    <img src="pag2_img4.jpg" alt="Sabana Africana">
+                    <h3>Sabana Africana</h3>
+                </div>
+                <div class="face back">
+                    <h3 style="color: #fff;">Sabana Africana</h3>
+                    <p>
+                        <li>Productores: 1200 unidades</li>
+                        <li>Consumidores Primarios: 120 unidades</li>
+                        <li>Consumidores Secundarios: 12 unidades</li>
+                        <li>Consumidores Terciarios: 1.2 unidades</li>
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+
+</body>
+</html>
